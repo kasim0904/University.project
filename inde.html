@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI University – Ghost Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      width: 360px;
+      margin: 100px auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1e40af;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+    }
+
+    .top {
+      text-align: right;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="box" id="loginBox">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Name or Email">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <p class="error" id="loginError"></p>
+</div>
+
+<!-- DASHBOARD -->
+<div class="box hidden" id="dashboardBox">
+  <div class="top">
+    <span id="userName"></span> |
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+
+  <h2>Dashboard</h2>
+
+  <h3>Subjects</h3>
+  <ul>
+    <li>Conflict Management</li>
+    <li>Computer Application</li>
+    <li>Introduction to Computer</li>
+    <li>Somali Studies</li>
+    <li>English</li>
+    <li>Al Akhlaq</li>
+  </ul>
+
+  <h3>Upload PDF (Test)</h3>
+  <select>
+    <option>Select Subject</option>
+    <option>Conflict Management</option>
+    <option>Computer Application</option>
+    <option>Introduction to Computer</option>
+    <option>Somali Studies</option>
+    <option>English</option>
+    <option>Al Akhlaq</option>
+  </select>
+
+  <select>
+    <option>Beginner</option>
+    <option>Intermediate</option>
+    <option>Advanced</option>
+  </select>
+
+  <input type="file">
+  <button onclick="alert('Ghost upload – backend wali ma jiro')">
+    Upload
+  </button>
+
+  <h3>AI Presentation (Demo)</h3>
+  <input type="text" id="topic" placeholder="Enter presentation topic">
+  <button onclick="generatePresentation()">Generate</button>
+  <p id="presentationResult"></p>
+</div>
+
+<script>
+  function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+    const error = document.getElementById("loginError");
+
+    if (pass === "1234") {
+      localStorage.setItem("user", user);
+      showDashboard();
+    } else {
+      error.textContent = "Password qalad ah (isku day 1234)";
+    }
+  }
+
+  function showDashboard() {
+    document.getElementById("loginBox").classList.add("hidden");
+    document.getElementById("dashboardBox").classList.remove("hidden");
+    document.getElementById("userName").textContent =
+      localStorage.getItem("user");
+  }
+
+  function logout() {
+    localStorage.clear();
+    location.reload();
+  }
+
+  function generatePresentation() {
+    const topic = document.getElementById("topic").value;
+    if (!topic) {
+      alert("Fadlan mowduuc qor");
+      return;
+    }
+    document.getElementById("presentationResult").textContent =
+      "AI Presentation diyaar ah: " + topic +
+      " (slides outline – demo)";
+  }
+
+  // Auto login haddii user horey u galay
+  if (localStorage.getItem("user")) {
+    showDashboard();
+  }
+</script>
+
+</body>
+</html>
